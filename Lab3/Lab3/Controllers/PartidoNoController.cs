@@ -3,15 +3,21 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using AVL;
+using Lab3.DBContext;
+using Lab3.Models;
 
 namespace Lab3.Controllers
 {
     public class PartidoNoController : Controller
     {
+
+        DefaultConnection db = DefaultConnection.getInstance;
+
         // GET: PartidoNo
         public ActionResult Index()
         {
-            return View();
+            return View(db.no.ToList());
         }
 
         // GET: PartidoNo/Details/5

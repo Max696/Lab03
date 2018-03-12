@@ -42,7 +42,7 @@ namespace Lab3.Controllers
             try
             {
                 // TODO: Add insert logic here
-
+                
                 return RedirectToAction("Index");
             }
             catch
@@ -101,7 +101,6 @@ namespace Lab3.Controllers
         // GET: PartidoFecha/Load
         public ActionResult Load()
         {
-            //Añadir nodo manualmente
             return View();
         }
 

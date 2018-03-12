@@ -1,0 +1,26 @@
+﻿@model Lab3.Models.PartidoNo
+
+@{
+    ViewBag.Title = "Load";
+}
+
+<h2>Load</h2>
+
+<body>
+    @using (Html.BeginForm("Create", "Pais", FormMethod.Post, new { enctype = "multipart/form-data" }))
+    {
+        <div>
+            JSON file <input type="file" name="jsonFile" />
+            <br />
+            <input type="submit" value="Import" />
+        </div>
+    }
+</body>
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

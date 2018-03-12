@@ -12,7 +12,6 @@ namespace AVL
             int right = 0;
             int left = 0;
 
-
             public ArbolAVL() 
             {
                 _raiz = null;

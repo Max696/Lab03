@@ -2,3 +2,8 @@ C:\ED\Github\Lab3\AVL\bin\Debug\AVL.dll
 C:\ED\Github\Lab3\AVL\bin\Debug\AVL.pdb
 C:\ED\Github\Lab3\AVL\obj\Debug\AVL.dll
 C:\ED\Github\Lab3\AVL\obj\Debug\AVL.pdb
+C:\Users\lam_m\OneDrive\ED\Lab03\Lab3\AVL\bin\Debug\AVL.dll
+C:\Users\lam_m\OneDrive\ED\Lab03\Lab3\AVL\bin\Debug\AVL.pdb
+C:\Users\lam_m\OneDrive\ED\Lab03\Lab3\AVL\obj\Debug\AVL.csprojResolveAssemblyReference.cache
+C:\Users\lam_m\OneDrive\ED\Lab03\Lab3\AVL\obj\Debug\AVL.dll
+C:\Users\lam_m\OneDrive\ED\Lab03\Lab3\AVL\obj\Debug\AVL.pdb

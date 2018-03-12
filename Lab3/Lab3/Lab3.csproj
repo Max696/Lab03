@@ -111,6 +111,7 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Controllers\BitacoraController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\PartidoFechaController.cs" />
     <Compile Include="Controllers\PartidoNoController.cs" />
@@ -158,12 +159,15 @@
     <Content Include="Views\Home\Contact.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Scripts\jquery-1.10.2.min.map" />
-    <Content Include="Views\PartidoFecha\Index.cshtml" />
     <Content Include="Views\PartidoFecha\Create.cshtml" />
-    <Content Include="Views\PartidoFecha\Edit.cshtml" />
     <Content Include="Views\PartidoNo\Create.cshtml" />
     <Content Include="Views\PartidoNo\Index.cshtml" />
-    <Content Include="Views\PartidoNo\Edit.cshtml" />
+    <Content Include="Views\PartidoFecha\Load.cshtml" />
+    <Content Include="Views\PartidoFecha\Index.cshtml" />
+    <Content Include="Views\PartidoFecha\Delete.cshtml" />
+    <Content Include="Views\Bitacora\Index.cshtml" />
+    <Content Include="Views\PartidoNo\Load.cshtml" />
+    <Content Include="Views\PartidoNo\Delete.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

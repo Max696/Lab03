@@ -8,10 +8,15 @@ namespace Lab3.Models
     public class PartidoFecha : IComparable<PartidoFecha>
     {
         public int noPartido { get; set; }
+
         public DateTime fechaPartido { get; set; }
+
         public string grupo { get; set; }
+
         public string pais1 { get; set; }
+
         public string pais2 { get; set; }
+
         public string estadio { get; set; }
 
         public int CompareTo(PartidoFecha obj)

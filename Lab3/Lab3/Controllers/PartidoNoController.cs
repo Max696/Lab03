@@ -3,15 +3,23 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using AVL;
+using Lab3.DBContext;
+using Lab3.Models;
+using System.IO;
+using System.Net;
 
 namespace Lab3.Controllers
 {
     public class PartidoNoController : Controller
     {
+
+        DefaultConnection db = DefaultConnection.getInstance;
+
         // GET: PartidoNo
         public ActionResult Index()
         {
-            return View();
+            return View(db.no.ToList());
         }
 
         // GET: PartidoNo/Details/5
@@ -78,6 +86,37 @@ namespace Lab3.Controllers
             {
                 // TODO: Add delete logic here
 
+                return RedirectToAction("Index");
+            }
+            catch
+            {
+                return View();
+            }
+        }
+        // GET: PartidoFecha/Load
+        public ActionResult Load()
+        {
+            return View();
+        }
+
+        //POST: PartidoFecha/Load
+        [HttpPost]
+        public ActionResult Load(HttpPostedFileBase jsonFile)
+        {
+            try
+            {
+                // TODO: Add insert logic here
+                if (Path.GetFileName(jsonFile.FileName).EndsWith(".json"))
+                {
+                    jsonFile.SaveAs(Server.MapPath("~/JSONFiles" + Path.GetFileName(jsonFile.FileName)));
+                    StreamReader sr = new StreamReader(Server.MapPath("~/JSONFiles" + Path.GetFileName(jsonFile.FileName)));
+                    string data = sr.ReadToEnd();
+
+                }
+                else
+                {
+                    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                }
                 return RedirectToAction("Index");
             }
             catch

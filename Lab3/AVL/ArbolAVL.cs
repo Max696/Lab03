@@ -9,36 +9,50 @@ namespace AVL
     public class ArbolAVL<T> : IArbolBinario<T> where T: IComparable<T>
         {
             public Nodo<T> _raiz { get; set; }
-            int right = 0;
-            int left = 0;
-
+           
             public ArbolAVL() 
             {
                 _raiz = null;
             }
-        
-            public Nodo<T> Min( Nodo<T> actual)
+            public int maxComp(int a, int b)
             {
-                if (actual==null)
+                return (a >= b) ? a : b;
+            }
+            public int heigh(Nodo<T> _root)
+            {
+                if (_root == null)
                 {
-                    return null;
+                    return 0;
+                }
+                return 1 + maxComp(heigh(_root.izquierdo), heigh(_root.derecho));
+            }
+            public bool checkIfBalance(Nodo<T> _root)
+            {
+                int leftheigh;
+                int rightheigh;
+                if (_root == null)
+                {
+                    return true;
 
                 }
-                if (actual.izquierdo == null)
+                leftheigh = heigh(_root.izquierdo);
+                rightheigh = heigh(_root.derecho);
+                if (Math.Abs(rightheigh - leftheigh) <= 1 && checkIfBalance(_root.izquierdo) && checkIfBalance(_root.derecho))
                 {
-                    return actual;
+                    return true;
                 }
-                return Min(actual.izquierdo);
+                return false;
             }
-
-            public  Nodo<T> RoveToFindMin()
+            private int count = 0;
+            public int BF( Nodo<T> pivot)
             {
-                return Min(_raiz);
-            }
+                int leftheigh;
+                int rightheigh;
+               
+                leftheigh = heigh(pivot.izquierdo);
+                rightheigh = heigh(pivot.derecho);
+                return (rightheigh - leftheigh);
 
-            public void Eliminar(T _key)
-            {
-                DeleteWithNodea(_key, _raiz);
             }
 
             public Nodo<T> Max(Nodo<T> n)
@@ -103,7 +117,6 @@ namespace AVL
                 }
                 return pivot;
             }
-
             private void rootDelete(T _key, Nodo<T> root)
             {
                 if (root != null)
@@ -158,19 +171,58 @@ namespace AVL
                     }
                 }
             }
-
-            public void Insertar(Nodo<T> _nuevo)
+            private int contador = 0;
+            public int Insertar(Nodo<T> _nuevo)
             {
                 if (_raiz == null)
                 {
                     _raiz = _nuevo;
+                    _raiz.parent = null;
+                    contador++;
+                    return contador;
                 }
                 else
                 {
                     InsercionInterna(_raiz, _nuevo);
+                    if (!checkIfBalance(_raiz))
+                    {
+                        balance();
+                        contador++;
+                    }
+                    return contador;
                 }
             }
+           public void balance (Nodo<T> aux)
+            {
+                int fbParent = BF(aux.parent);
+                int fbSon = BF(aux);
+                if ( Math.Sign(fbParent)== Math.Sign(fbSon))
+                {
+                    // rotacion simple
+                    
+                }
+                else
+                {
+                     //rotacion doble 
+                }
 
+            }
+            public void busqueda(Nodo< T>  pivot)
+            {
+                int s = BF(pivot);
+                if ( Math.Abs(s) != 2 )
+                {
+                    balance(pivot);
+                }
+                else
+                {
+                    if (s == -1)
+                        busqueda(pivot.izquierdo);
+                    else
+                        busqueda(pivot.derecho);
+                }
+
+              }
             public Nodo<T> ObtenerRaiz()
             {
                 return _raiz;
@@ -182,7 +234,8 @@ namespace AVL
                     if (_actual.derecho == null)
                     {
                         _actual.derecho = _nuevo;
-                        right++;
+                        _nuevo.parent = _actual;
+                        
                     }
                     else
                     {
@@ -193,7 +246,7 @@ namespace AVL
                     if (_actual.izquierdo == null)
                     {
                         _actual.izquierdo = _nuevo;
-                        left++;
+                        _nuevo.parent = _actual;
                     }
                     else 
                     {

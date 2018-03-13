@@ -7,3 +7,8 @@ C:\Users\lam_m\OneDrive\ED\Lab03\Lab3\AVL\bin\Debug\AVL.pdb
 C:\Users\lam_m\OneDrive\ED\Lab03\Lab3\AVL\obj\Debug\AVL.csprojResolveAssemblyReference.cache
 C:\Users\lam_m\OneDrive\ED\Lab03\Lab3\AVL\obj\Debug\AVL.dll
 C:\Users\lam_m\OneDrive\ED\Lab03\Lab3\AVL\obj\Debug\AVL.pdb
+D:\Lab03\Lab3\AVL\bin\Debug\AVL.dll
+D:\Lab03\Lab3\AVL\bin\Debug\AVL.pdb
+D:\Lab03\Lab3\AVL\obj\Debug\AVL.csprojResolveAssemblyReference.cache
+D:\Lab03\Lab3\AVL\obj\Debug\AVL.dll
+D:\Lab03\Lab3\AVL\obj\Debug\AVL.pdb

@@ -9,7 +9,56 @@ namespace AVL
     public class ArbolAVL<T> : IArbolBinario<T> where T: IComparable<T>
         {
             public Nodo<T> _raiz { get; set; }
-           
+
+            public int Insertar(Nodo<T> _nuevo)
+            {
+                if (_raiz == null)
+                {
+                    _raiz = _nuevo;
+                    _raiz.parent = null;
+                    contador++;
+                    return contador;
+                }
+                else
+                {
+                    InsercionInterna(_raiz, _nuevo);
+                    if (!checkIfBalance(_raiz))
+                    {
+                        balance();
+                        contador++;
+                    }
+                    return contador;
+                }
+            }
+            private void InsercionInterna(Nodo<T> _actual, Nodo<T> _nuevo)
+            {
+                if (_actual.CompareTo(_nuevo.valor) < 0)
+                {
+                    if (_actual.derecho == null)
+                    {
+                        _actual.derecho = _nuevo;
+                        _nuevo.parent = _actual;
+
+                    }
+                    else
+                    {
+                        InsercionInterna(_actual.derecho, _nuevo);
+                    }
+                }
+                else if (_actual.CompareTo(_nuevo.valor) > 0)
+                {
+                    if (_actual.izquierdo == null)
+                    {
+                        _actual.izquierdo = _nuevo;
+                        _nuevo.parent = _actual;
+                    }
+                    else
+                    {
+                        InsercionInterna(_actual.izquierdo, _nuevo);
+                    }
+                }
+            }
+
             public ArbolAVL() 
             {
                 _raiz = null;
@@ -54,7 +103,6 @@ namespace AVL
                 return (rightheigh - leftheigh);
 
             }
-
             public Nodo<T> Max(Nodo<T> n)
             {
                 if (n == null)
@@ -172,38 +220,75 @@ namespace AVL
                 }
             }
             private int contador = 0;
-            public int Insertar(Nodo<T> _nuevo)
+            private void balanceV2(Nodo<T> pivot)
             {
-                if (_raiz == null)
-                {
-                    _raiz = _nuevo;
-                    _raiz.parent = null;
-                    contador++;
-                    return contador;
-                }
-                else
-                {
-                    InsercionInterna(_raiz, _nuevo);
-                    if (!checkIfBalance(_raiz))
-                    {
-                        balance();
-                        contador++;
-                    }
-                    return contador;
-                }
+                int FB = BF(pivot);
+                 if ( Math.Abs(FB)>1)
+                 {
+                     if(FB==2)
+                     {
+
+                     } 
+                     else if ( FB == -2)
+                     {
+
+                     }
+
+                 }
             }
-           public void balance (Nodo<T> aux)
+            private void rightRotation ()
+
+            {
+
+            }
+            private void leftRotation()
+           {
+
+           }
+            public void balance (Nodo<T> aux)
             {
                 int fbParent = BF(aux.parent);
                 int fbSon = BF(aux);
                 if ( Math.Sign(fbParent)== Math.Sign(fbSon))
                 {
                     // rotacion simple
+
                     
                 }
                 else
                 {
                      //rotacion doble 
+                }
+
+            }
+            public void balance2(Nodo<T> aux)
+            {
+                int balance = BF(aux);
+                if ( Math.Abs(balance)>1)
+                {
+                    if ( balance ==2)
+                    {
+                        if(BF(aux.izquierdo)==-1)
+                        {
+                            // rotacion izquierda del hijo izquierdo
+                        }
+                        else
+                        {
+                            // rotacion hacia la  derecha del nodo
+                        }
+                        
+                    }
+                    else if ( balance==-2)
+                    {
+                        if ( BF(aux.derecho) ==1)
+                        {
+                            // rotacion derecha del hijo derecho 
+                        }
+                        else
+                        {
+                          //  rotacion hacia Lazy izquierda del Nodo 
+                        }
+                    }
                 }
 
             }
@@ -227,32 +312,7 @@ namespace AVL
             {
                 return _raiz;
             }
-
-            private void InsercionInterna(Nodo<T> _actual, Nodo<T> _nuevo) {
-                if (_actual.CompareTo(_nuevo.valor) < 0)
-                {
-                    if (_actual.derecho == null)
-                    {
-                        _actual.derecho = _nuevo;
-                        _nuevo.parent = _actual;
-                        
-                    }
-                    else
-                    {
-                        InsercionInterna(_actual.derecho, _nuevo);
-                    }
-                }
-                else if (_actual.CompareTo(_nuevo.valor) > 0) {
-                    if (_actual.izquierdo == null)
-                    {
-                        _actual.izquierdo = _nuevo;
-                        _nuevo.parent = _actual;
-                    }
-                    else 
-                    {
-                        InsercionInterna(_actual.izquierdo, _nuevo);
-                    }
-                }
-            }
+          
     }
-}
+}   
+            

@@ -236,14 +236,36 @@ namespace AVL
 
                  }
             }
-            private void rightRotation ()
+            private void rightRotation (Nodo<T> pivot)
 
             {
+                Nodo<T> aux = pivot.izquierdo;
+                pivot.izquierdo = aux.derecho;
+                pivot.izquierdo.parent = pivot;
+                aux.derecho = pivot;
+                aux.parent = pivot.parent;
+                pivot.parent = aux;
+                if (pivot.Equals(_raiz))
+                {
+                    _raiz = pivot;
+                    pivot = aux;
+                }
+
 
             }
-            private void leftRotation()
+            private void leftRotation(Nodo<T> pivot)
            {
-
+               Nodo<T> aux = pivot.derecho;
+               pivot.derecho = aux.izquierdo;
+               pivot.derecho.parent = pivot;
+               aux.izquierdo = pivot;
+               aux.parent = pivot.parent;
+               pivot.parent = aux;
+               if (pivot.Equals(_raiz))
+               {
+                   _raiz = pivot;
+                   pivot = aux;
+               }
            }
             public void balance (Nodo<T> aux)
             {
@@ -270,11 +292,11 @@ namespace AVL
                     {
                         if(BF(aux.izquierdo)==-1)
                         {
-                            // rotacion izquierda del hijo izquierdo
+                            leftRotation(aux.izquierdo);
                         }
                         else
                         {
-                            // rotacion hacia la  derecha del nodo
+                            rightRotation(aux);
                         }
                         
                     }
@@ -282,11 +304,11 @@ namespace AVL
                     {
                         if ( BF(aux.derecho) ==1)
                         {
-                            // rotacion derecha del hijo derecho 
+                            rightRotation(aux.derecho);
                         }
                         else
                         {
-                          //  rotacion hacia Lazy izquierda del Nodo 
+                            leftRotation(aux); 
                         }
                     }
                 }

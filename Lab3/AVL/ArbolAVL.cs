@@ -9,7 +9,18 @@ namespace AVL
     public class ArbolAVL<T> : IArbolBinario<T> where T: IComparable<T>
         {
             public Nodo<T> _raiz { get; set; }
-
+            private int contadorE = 0;
+        public int Eliminar(T value)
+            {
+                DeleteWithNodea(value, _raiz);
+                contadorE++;
+                if (!checkIfBalance(_raiz))
+                {
+                    balance(_raiz);
+                    contadorE++;
+                }
+                return contadorE;
+            }
             public int Insertar(Nodo<T> _nuevo)
             {
                 if (_raiz == null)
@@ -24,7 +35,7 @@ namespace AVL
                     InsercionInterna(_raiz, _nuevo);
                     if (!checkIfBalance(_raiz))
                     {
-                        balance();
+                        balance(_raiz);
                         contador++;
                     }
                     return contador;
@@ -57,6 +68,12 @@ namespace AVL
                         InsercionInterna(_actual.izquierdo, _nuevo);
                     }
                 }
+            }
+      
+           public  void Insert(T value, ComparadorNodosDelegate<T> s )
+            {
+                Nodo <T> aux =new Nodo<T>(value, s);
+                Insertar(aux);
             }
 
             public ArbolAVL() 
@@ -92,7 +109,7 @@ namespace AVL
                 }
                 return false;
             }
-            private int count = 0;
+            
             public int BF( Nodo<T> pivot)
             {
                 int leftheigh;
@@ -117,7 +134,9 @@ namespace AVL
                     }
                     return n;
                 }
+
             }
+               
             public Nodo<T> DeleteWithNodea(T _key, Nodo<T> pivot) //Eliminar
             {
                 if (pivot==null)
@@ -219,7 +238,7 @@ namespace AVL
                     }
                 }
             }
-            private int contador = 0;
+            private int   contador   = 0;
             private void balanceV2(Nodo<T> pivot)
             {
                 int FB = BF(pivot);

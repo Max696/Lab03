@@ -13,6 +13,7 @@ namespace AVL
         public Nodo<T> izquierdo { get; set; }
 
         public Nodo<T> derecho { get; set; }
+        public Nodo<T> parent { get; set; }
 
         private ComparadorNodosDelegate<T> comparador;
 

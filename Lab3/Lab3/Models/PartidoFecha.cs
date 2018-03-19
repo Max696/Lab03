@@ -9,15 +9,15 @@ namespace Lab3.Models
     {
         public int noPartido { get; set; }
 
-        public DateTime fechaPartido { get; set; }
+        public DateTime FechaPartido { get; set; }
 
-        public string grupo { get; set; }
+        public string Grupo { get; set; }
 
-        public string pais1 { get; set; }
+        public string Pais1 { get; set; }
 
-        public string pais2 { get; set; }
+        public string Pais2 { get; set; }
 
-        public string estadio { get; set; }
+        public string Estadio { get; set; }
 
         public int CompareTo(PartidoFecha obj)
         {
@@ -26,7 +26,7 @@ namespace Lab3.Models
 
             PartidoFecha otro = obj as PartidoFecha;
             if (otro != null)
-                return this.fechaPartido.CompareTo(otro.fechaPartido);
+                return this.FechaPartido.CompareTo(otro.FechaPartido);
             else
                 throw new ArgumentException("Object is not a País");
         }

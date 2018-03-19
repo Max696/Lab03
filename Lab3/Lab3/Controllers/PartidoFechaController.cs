@@ -8,12 +8,14 @@ using Lab3.DBContext;
 using Lab3.Models;
 using System.Net;
 using AVL;
+using System.Web.Script.Serialization;
+using Newtonsoft.Json;
 
 namespace Lab3.Controllers
 {
     public class PartidoFechaController : Controller
     {
-
+ 
         DefaultConnection db = DefaultConnection.getInstance;
 
         // GET: PartidoFecha
@@ -103,8 +105,12 @@ namespace Lab3.Controllers
         {
             return View();
         }
-
-
+       
+        
+        public class ListaNodos
+        {
+            public List<PartidoFecha> data { get; set; }
+        }
         //POST: PartidoFecha/Load
         [HttpPost]
         public ActionResult Load(HttpPostedFileBase jsonFile)
@@ -117,7 +123,36 @@ namespace Lab3.Controllers
                     jsonFile.SaveAs(Server.MapPath("~/JSONFiles" + Path.GetFileName(jsonFile.FileName)));
                     StreamReader sr = new StreamReader(Server.MapPath("~/JSONFiles" + Path.GetFileName(jsonFile.FileName)));
                     string data = sr.ReadToEnd();
-                   
+                    List<PartidoFecha> partidinhos = new List<PartidoFecha>();
+                  //  Lectrura fec = JsonConvert.DeserializeObject<Lectrura>(data);
+                     string []g ;
+                   char[] separators = { '{', '}'};
+                    g = data.Split(separators,System.StringSplitOptions.RemoveEmptyEntries);
+                    for (int i = 1; i < g.Length; i++)
+                    {
+                        
+                           string a= "{"+ g[i]+"}";
+                            partidinhos.Add(JsonConvert.DeserializeObject<PartidoFecha>(a));
+                            i++;
+                    }
+
+                    foreach (var item in partidinhos)
+                    {
+                        Nodo<PartidoFecha> nuevo = new Nodo<PartidoFecha>(item,CompararFecha);
+                        int num = db.arbolFecha.Insertar(nuevo);
+                        if (num == 1)
+                        {
+                            db.bitacora.Add("Se ha insertado el nodo");
+                        }
+                        else if (num == 2)
+                        {
+                            db.bitacora.Add("Se ha insertado y balanceado el arbol");
+                        }
+                        else
+                        {
+                            db.bitacora.Add("Esto no deberia pasar, aiuda");
+                        }
+                    }                
                 }
                 else
                 {
@@ -127,8 +162,13 @@ namespace Lab3.Controllers
             }
             catch
             {
-                return View();
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
+        }
+
+        private int CompararFecha(PartidoFecha _actual, PartidoFecha _nuevo)
+        {
+            return _actual.CompareTo(_nuevo);
         }
 
     }

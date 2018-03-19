@@ -70,11 +70,7 @@ namespace AVL
                 }
             }
       
-           public  void Insert(T value, ComparadorNodosDelegate<T> s )
-            {
-                Nodo <T> aux =new Nodo<T>(value, s);
-                Insertar(aux);
-            }
+        
 
             public ArbolAVL() 
             {
@@ -96,6 +92,7 @@ namespace AVL
             {
                 int leftheigh;
                 int rightheigh;
+                
                 if (_root == null)
                 {
                     return true;

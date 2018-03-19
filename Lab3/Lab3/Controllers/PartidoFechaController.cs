@@ -131,7 +131,7 @@ namespace Lab3.Controllers
                     for (int i = 1; i < g.Length; i++)
                     {
                         
-                           string a= "{"+ g[i]+"}";
+                            string a= "{"+ g[i]+"}";
                             partidinhos.Add(JsonConvert.DeserializeObject<PartidoFecha>(a));
                             i++;
                     }
@@ -143,10 +143,12 @@ namespace Lab3.Controllers
                         if (num == 1)
                         {
                             db.bitacora.Add("Se ha insertado el nodo");
+                            db.fecha.Add(item);
                         }
                         else if (num == 2)
                         {
                             db.bitacora.Add("Se ha insertado y balanceado el arbol");
+                            db.fecha.Add(item);
                         }
                         else
                         {

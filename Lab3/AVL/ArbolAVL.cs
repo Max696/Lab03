@@ -16,7 +16,7 @@ namespace AVL
                 contadorE++;
                 if (!checkIfBalance(_raiz))
                 {
-                    balance(_raiz);
+                    balance2(_raiz);
                     contadorE++;
                 }
                 return contadorE;
@@ -35,7 +35,7 @@ namespace AVL
                     InsercionInterna(_raiz, _nuevo);
                     if (!checkIfBalance(_raiz))
                     {
-                        balance(_raiz);
+                        balance2(_raiz);
                         contador++;
                     }
                     return contador;

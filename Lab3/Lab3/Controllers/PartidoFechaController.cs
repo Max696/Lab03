@@ -44,7 +44,16 @@ namespace Lab3.Controllers
             try
             {
                 // TODO: Add insert logic here
-                
+                if (nuevo != null)
+                {
+                    Nodo<PartidoFecha> nuevou = new Nodo<PartidoFecha>(nuevo, CompararFecha);
+                    int a = db.arbolFecha.Insertar(nuevou);
+                    if (a == 1)
+                        db.bitacora.Add("Se ha agregado el nodo");
+                    else if (a == 2)
+                        db.bitacora.Add("Se ha agregado el nodo y se ha balanceado el arbol");
+                    db.fecha.Add(nuevo);
+                }
                 return RedirectToAction("Index");
             }
             catch
@@ -67,7 +76,6 @@ namespace Lab3.Controllers
             try
             {
                 // TODO: Add update logic here
-
                 return RedirectToAction("Index");
             }
             catch
@@ -77,22 +85,50 @@ namespace Lab3.Controllers
         }
 
 
-
+        PartidoFecha a;
         // GET: PartidoFecha/Delete/5
-        public ActionResult Delete(int id)
+        public ActionResult Delete(int? noPar)
         {
-            return View();
+            if (noPar == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+
+            a = db.fecha.Find(x => x.noPartido == noPar);
+            if (a == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+
+            return View(a);
         }
 
         // POST: PartidoFecha/Delete/5
-        [HttpPost]
-        public ActionResult Delete(int id, FormCollection collection)
+        [HttpPost,ActionName("Delete")]
+        [ValidateAntiForgeryToken]
+        public ActionResult Delete([Bind(Include = "noPartido, Estadio, Pais1, Pais2, FechaPartido, Grupo")]PartidoFecha persona)
         {
             try
             {
                 // TODO: Add delete logic here
+                PartidoFecha pf = db.fecha.Find(x => x.noPartido == persona.noPartido);
 
-                return RedirectToAction("Index");
+                if (pf == null)
+                    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                else
+                {
+                    int a = db.arbolFecha.Eliminar(pf);
+                    if (a == 1)
+                    {
+                        db.bitacora.Add("Se ha eliminado el nodo");
+                    }
+                    else if(a == 2)
+                    {
+                        db.bitacora.Add("Se ha eliminado el nodo y se ha balanceado el árbol");
+                    }
+                    db.fecha.Remove(pf);
+                }
+                return RedirectToAction("Index", db.fecha);
             }
             catch
             {
@@ -124,16 +160,14 @@ namespace Lab3.Controllers
                     StreamReader sr = new StreamReader(Server.MapPath("~/JSONFiles" + Path.GetFileName(jsonFile.FileName)));
                     string data = sr.ReadToEnd();
                     List<PartidoFecha> partidinhos = new List<PartidoFecha>();
-                  //  Lectrura fec = JsonConvert.DeserializeObject<Lectrura>(data);
-                     string []g ;
-                   char[] separators = { '{', '}'};
-                    g = data.Split(separators,System.StringSplitOptions.RemoveEmptyEntries);
+                    string []g ;
+                    char[] separators = { '{', '}'};
+                    g = data.Split(separators, StringSplitOptions.RemoveEmptyEntries);
                     for (int i = 1; i < g.Length; i++)
                     {
-                        
-                            string a= "{"+ g[i]+"}";
-                            partidinhos.Add(JsonConvert.DeserializeObject<PartidoFecha>(a));
-                            i++;
+                        string a= "{"+ g[i]+"}";
+                        partidinhos.Add(JsonConvert.DeserializeObject<PartidoFecha>(a));
+                        i++;
                     }
 
                     foreach (var item in partidinhos)
@@ -149,10 +183,6 @@ namespace Lab3.Controllers
                         {
                             db.bitacora.Add("Se ha insertado y balanceado el arbol");
                             db.fecha.Add(item);
-                        }
-                        else
-                        {
-                            db.bitacora.Add("Esto no deberia pasar, aiuda");
                         }
                     }                
                 }

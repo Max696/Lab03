@@ -119,7 +119,6 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Models\Bitacora.cs" />
     <Compile Include="Models\PartidoFecha.cs" />
     <Compile Include="Models\PartidoNo.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -160,8 +159,6 @@
     <Content Include="Views\Home\Contact.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Scripts\jquery-1.10.2.min.map" />
-    <Content Include="Views\PartidoFecha\Create.cshtml" />
-    <Content Include="Views\PartidoNo\Create.cshtml" />
     <Content Include="Views\PartidoNo\Index.cshtml" />
     <Content Include="Views\PartidoFecha\Load.cshtml" />
     <Content Include="Views\PartidoFecha\Index.cshtml" />
@@ -169,6 +166,8 @@
     <Content Include="Views\PartidoNo\Load.cshtml" />
     <Content Include="Views\PartidoNo\Delete.cshtml" />
     <Content Include="Views\Bitacora\Index.cshtml" />
+    <Content Include="Views\PartidoFecha\Create.cshtml" />
+    <Content Include="Views\PartidoNo\Create.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

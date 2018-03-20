@@ -10,7 +10,7 @@ namespace AVL
         {
             public Nodo<T> _raiz { get; set; }
             private int contadorE = 0;
-        public int Eliminar(T value)
+            public int Eliminar(T value)
             {
                 DeleteWithNodea(value, _raiz);
                 contadorE++;
@@ -70,8 +70,6 @@ namespace AVL
                 }
             }
       
-        
-
             public ArbolAVL() 
             {
                 _raiz = null;

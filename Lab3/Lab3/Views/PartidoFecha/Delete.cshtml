@@ -20,48 +20,49 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.fechaPartido)
+            @Html.DisplayNameFor(model => model.FechaPartido)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.fechaPartido)
+            @Html.DisplayFor(model => model.FechaPartido)
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.grupo)
+            @Html.DisplayNameFor(model => model.Grupo)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.grupo)
+            @Html.DisplayFor(model => model.Grupo)
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.pais1)
+            @Html.DisplayNameFor(model => model.Pais1)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.pais1)
+            @Html.DisplayFor(model => model.Pais1)
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.pais2)
+            @Html.DisplayNameFor(model => model.Pais2)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.pais2)
+            @Html.DisplayFor(model => model.Pais2)
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.estadio)
+            @Html.DisplayNameFor(model => model.Estadio)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.estadio)
+            @Html.DisplayFor(model => model.Estadio)
         </dd>
 
     </dl>
 
-    @using (Html.BeginForm()) {
+    @using (Html.BeginForm())
+    {
         @Html.AntiForgeryToken()
 
         <div class="form-actions no-color">

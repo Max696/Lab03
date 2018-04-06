@@ -20,7 +20,9 @@ namespace Lab3.Controllers
         // GET: PartidoNo
         public ActionResult Index()
         {
-            return View(db.no.ToList());
+            db.arbolNo.Pre(db.arbolNo._raiz);
+
+            return View(db.arbolNo.PreList);
         }
 
         // GET: PartidoNo/Details/5
@@ -50,7 +52,7 @@ namespace Lab3.Controllers
                         db.bitacora.Add("Se ha agregado el nodo");
                     else if (a == 2)
                         db.bitacora.Add("Se ha agregado el nodo y se ha balanceado el arbol");
-                    db.no.Add(nuevo);
+                
                 }
                 return RedirectToAction("Index");
             }
@@ -139,12 +141,12 @@ namespace Lab3.Controllers
                         if (num == 1)
                         {
                             db.bitacora.Add("Se ha insertado el nodo");
-                            db.no.Add(item);
+                           
                         }
                         else if (num == 2)
                         {
                             db.bitacora.Add("Se ha insertado y balanceado el arbol");
-                            db.no.Add(item);
+                            
                         }
                     }
                 }

@@ -23,7 +23,7 @@ namespace Lab3.Models
             if (otro != null)
                 return this.noPartido.CompareTo(otro.noPartido);
             else
-                throw new ArgumentException("Object is not a País");
+                return 0; 
         }
     }
 }

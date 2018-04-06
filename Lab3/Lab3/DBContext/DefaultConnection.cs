@@ -14,8 +14,7 @@ namespace Lab3.DBContext
 
         
         public List<string> bitacora = new List<string>();
-        public List<PartidoFecha> fecha = new List<PartidoFecha>();
-        public List<PartidoNo> no = new List<PartidoNo>();
+      
 
         public ArbolAVL<PartidoFecha> arbolFecha = new ArbolAVL<PartidoFecha>();
         public ArbolAVL<PartidoNo> arbolNo = new ArbolAVL<PartidoNo>();

@@ -23,6 +23,7 @@ namespace AVL
             }
             public int Insertar(Nodo<T> _nuevo)
             {
+                 int   contador   = 0;
                 if (_raiz == null)
                 {
                     _raiz = _nuevo;
@@ -33,9 +34,12 @@ namespace AVL
                 else
                 {
                     InsercionInterna(_raiz, _nuevo);
+                    contador++;
                     if (!checkIfBalance(_raiz))
                     {
-                        balance2(_raiz);
+                       
+                        balance2(_nuevo);
+                        
                         contador++;
                     }
                     return contador;
@@ -68,8 +72,7 @@ namespace AVL
                         InsercionInterna(_actual.izquierdo, _nuevo);
                     }
                 }
-            }
-      
+            }      
             public ArbolAVL() 
             {
                 _raiz = null;
@@ -78,13 +81,13 @@ namespace AVL
             {
                 return (a >= b) ? a : b;
             }
-            public int heigh(Nodo<T> _root)
+            public int heigh(Nodo<T> pivot)
             {
-                if (_root == null)
+                if (pivot == null)
                 {
                     return 0;
                 }
-                return 1 + maxComp(heigh(_root.izquierdo), heigh(_root.derecho));
+                return 1 + maxComp(heigh(pivot.izquierdo), heigh(pivot.derecho));
             }
             public bool checkIfBalance(Nodo<T> _root)
             {
@@ -103,13 +106,15 @@ namespace AVL
                     return true;
                 }
                 return false;
-            }
-            
+            }            
             public int BF( Nodo<T> pivot)
             {
                 int leftheigh;
                 int rightheigh;
-               
+               if (pivot == null)
+               {
+                   return 0;
+               }
                 leftheigh = heigh(pivot.izquierdo);
                 rightheigh = heigh(pivot.derecho);
                 return (rightheigh - leftheigh);
@@ -130,8 +135,7 @@ namespace AVL
                     return n;
                 }
 
-            }
-               
+            }               
             public Nodo<T> DeleteWithNodea(T _key, Nodo<T> pivot) //Eliminar
             {
                 if (pivot==null)
@@ -232,54 +236,114 @@ namespace AVL
                         }
                     }
                 }
-            }
-            private int   contador   = 0;
-            private void balanceV2(Nodo<T> pivot)
+            }            
+            private Nodo<T> balanceV2(Nodo<T> pivot)
             {
                 int FB = BF(pivot);
-                 if ( Math.Abs(FB)>1)
+                 if ( Math.Abs(FB)==2)
                  {
-                     if(FB==2)
+                     if(FB==-2)
                      {
-
+                         Nodo<T> auxLeft = pivot.izquierdo;
+                         int s =BF(auxLeft);
+                         if(s==-1)
+                         {
+                             return llRotation(pivot);
+                         }
+                         else if ( s == 1)
+                         {
+                             return lrRotation(pivot);
+                         }
                      } 
-                     else if ( FB == -2)
+                     else if ( FB == 2)
                      {
-
+                         Nodo<T> auxRigth = pivot.derecho;
+                         int s = BF(auxRigth);
+                         if (s==-1)
+                         {
+                             return rlRotation(pivot);
+                         }
+                         else if ( s == 1)
+                         {
+                             return rrRotation(pivot);
+                         }
                      }
 
                  }
-            }
-            private void rightRotation (Nodo<T> pivot)
+                 _raiz = pivot;
+                 return pivot;
+             }
+            private Nodo<T>rrRotation(Nodo<T>pivot)
+            {
+                Nodo<T> aux1 = pivot.derecho;
+                pivot.derecho = aux1.izquierdo;
+                aux1.izquierdo = pivot;
+                return aux1;
 
+            }
+            private Nodo<T> llRotation(Nodo<T> pivot)
             {
                 Nodo<T> aux = pivot.izquierdo;
                 pivot.izquierdo = aux.derecho;
-                pivot.izquierdo.parent = pivot;
                 aux.derecho = pivot;
-                aux.parent = pivot.parent;
-                pivot.parent = aux;
-                if (pivot.Equals(_raiz))
+                return pivot;
+            }
+            private Nodo<T> lrRotation(Nodo<T> pivot)
+           {
+               Nodo<T> aux1 = pivot.izquierdo;
+               Nodo<T> aux2 = pivot.derecho;
+               pivot.izquierdo = aux2.derecho;
+               aux1.derecho = aux2.izquierdo;
+               aux2.izquierdo = aux1;
+               aux2.derecho = pivot;
+
+               return aux2;
+           }
+            private Nodo<T> rlRotation(Nodo<T> pivot)
+        {
+            Nodo<T> aux1 = pivot.derecho;
+            Nodo<T> aux2 = pivot.izquierdo;
+            pivot.derecho = aux2.izquierdo;
+            aux1.izquierdo = aux2.derecho;
+            aux2.derecho = aux1;
+            aux2.izquierdo = pivot;
+            return aux2;
+        }
+            private void rightRotation (Nodo<T> pivot)
+
+            {
+                Nodo<T> aux = pivot.parent.parent;
+                if (aux.derecho == null)
                 {
-                    _raiz = pivot;
-                    pivot = aux;
+                    Nodo<T> aux2 = pivot.parent;
+                    pivot.parent.parent = aux2;
+                    aux.izquierdo = null;
+                    pivot.parent.parent.derecho = aux;
+                    if (aux.CompareTo(_raiz.valor) == 0)
+                    {
+                        _raiz = pivot.parent;
+                    }
+                    
                 }
+                
+            
 
 
             }
             private void leftRotation(Nodo<T> pivot)
            {
-               Nodo<T> aux = pivot.derecho;
-               pivot.derecho = aux.izquierdo;
-               pivot.derecho.parent = pivot;
-               aux.izquierdo = pivot;
-               aux.parent = pivot.parent;
-               pivot.parent = aux;
-               if (pivot.Equals(_raiz))
-               {
-                   _raiz = pivot;
-                   pivot = aux;
-               }
+               Nodo<T> aux = pivot.parent.parent;
+                if ( aux.izquierdo== null)
+                {
+                    Nodo<T> aux2 = pivot.parent;
+                    pivot.parent.parent = aux2;
+                    aux.derecho = null;
+                    pivot.parent.parent.izquierdo = aux;
+                    if (aux.CompareTo(_raiz.valor) == 0)
+                    {
+                        _raiz = pivot.parent;
+                    }
+                }
            }
             public void balance (Nodo<T> aux)
             {
@@ -287,7 +351,7 @@ namespace AVL
                 int fbSon = BF(aux);
                 if ( Math.Sign(fbParent)== Math.Sign(fbSon))
                 {
-                    // rotacion simple
+                   // rotacion simple
 
                     
                 }
@@ -299,32 +363,34 @@ namespace AVL
             }
             public void balance2(Nodo<T> aux)
             {
-                int balance = BF(aux);
+                int balance = BF(_raiz);
                 if ( Math.Abs(balance)>1)
                 {
                     if ( balance ==2)
                     {
-                        if(BF(aux.izquierdo)==-1)
-                        {
-                            leftRotation(aux.izquierdo);
-                        }
-                        else
+                        if (BF(aux) == -1)
                         {
                             rightRotation(aux);
+                        }   
+                        else
+                        {
+                            leftRotation(aux);  
                         }
-                        
                     }
                     else if ( balance==-2)
                     {
-                        if ( BF(aux.derecho) ==1)
-                        {
-                            rightRotation(aux.derecho);
+                        
+                            if (BF(aux) == 1)
+                            {
+                                leftRotation(aux);
+                            }
+                            else
+                            {
+                               rightRotation(aux);
+                               
+                            }
                         }
-                        else
-                        {
-                            leftRotation(aux); 
-                        }
-                    }
+                    
                 }
 
             }
@@ -347,6 +413,17 @@ namespace AVL
             public Nodo<T> ObtenerRaiz()
             {
                 return _raiz;
+            }
+            public List<T> PreList = new List<T>();
+            public void Pre(Nodo<T> pivot)
+            {
+                if (pivot != null)
+                {
+                    PreList.Add(pivot.valor);
+                    Pre(pivot.izquierdo);                  
+                    Pre(pivot.derecho);                    
+
+                }
             }
           
     }

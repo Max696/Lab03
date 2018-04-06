@@ -21,7 +21,10 @@ namespace Lab3.Controllers
         // GET: PartidoFecha
         public ActionResult Index()
         {
-            return View(db.fecha.ToList());
+            db.arbolFecha.Pre(db.arbolFecha._raiz);
+
+
+            return View(db.arbolFecha.PreList);
         }
 
         // GET: PartidoFecha/Details/5
@@ -52,7 +55,6 @@ namespace Lab3.Controllers
                         db.bitacora.Add("Se ha agregado el nodo");
                     else if (a == 2)
                         db.bitacora.Add("Se ha agregado el nodo y se ha balanceado el arbol");
-                    db.fecha.Add(nuevo);
                 }
                 return RedirectToAction("Index");
             }
@@ -94,7 +96,6 @@ namespace Lab3.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
 
-            a = db.fecha.Find(x => x.noPartido == noPar);
             if (a == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -111,24 +112,7 @@ namespace Lab3.Controllers
             try
             {
                 // TODO: Add delete logic here
-                PartidoFecha pf = db.fecha.Find(x => x.noPartido == persona.noPartido);
-
-                if (pf == null)
-                    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-                else
-                {
-                    int a = db.arbolFecha.Eliminar(pf);
-                    if (a == 1)
-                    {
-                        db.bitacora.Add("Se ha eliminado el nodo");
-                    }
-                    else if(a == 2)
-                    {
-                        db.bitacora.Add("Se ha eliminado el nodo y se ha balanceado el árbol");
-                    }
-                    db.fecha.Remove(pf);
-                }
-                return RedirectToAction("Index", db.fecha);
+                return RedirectToAction("Index");
             }
             catch
             {
@@ -177,18 +161,16 @@ namespace Lab3.Controllers
                         if (num == 1)
                         {
                             db.bitacora.Add("Se ha insertado el nodo");
-                            db.fecha.Add(item);
                         }
                         else if (num == 2)
                         {
                             db.bitacora.Add("Se ha insertado y balanceado el arbol");
-                            db.fecha.Add(item);
                         }
                     }                
                 }
                 else
                 {
-                    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                    return View();
                 }
                 return RedirectToAction("Index");
             }

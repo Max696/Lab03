@@ -383,6 +383,7 @@ namespace AVL
                             if (BF(aux) == 1)
                             {
                                 leftRotation(aux);
+
                             }
                             else
                             {
@@ -410,6 +411,66 @@ namespace AVL
                 }
 
               }
+        public void RD(Nodo<T> pivot)
+            {
+                Nodo<T> aux = pivot.izquierdo;
+                pivot.izquierdo = aux.derecho;
+                pivot.izquierdo.parent = pivot;
+                aux.derecho = pivot;
+                aux.parent = pivot.parent;
+                pivot.parent = aux;
+                if (pivot.Equals(_raiz))
+                {
+                    _raiz = pivot;
+                    pivot = aux;
+                }
+            }
+        public void RI ( Nodo <T> pivot)
+
+        {
+            Nodo<T> aux = pivot.derecho;
+            pivot.derecho = aux.izquierdo;
+            pivot.derecho.parent = pivot;
+            aux.izquierdo = pivot;
+            aux.parent = pivot.parent;
+            pivot.parent = aux;
+            if (pivot.Equals(_raiz))
+            {
+                _raiz = pivot;
+                pivot = aux;
+            }
+        }
+        public void balance12(Nodo<T> aux)
+        {
+            int balance = BF(aux);
+            if (Math.Abs(balance) > 1)
+            {
+                if (balance == 2)
+                {
+                    if (BF(aux.izquierdo) == -1)
+                    {
+                        leftRotation(aux.izquierdo);
+                    }
+                    else
+                    {
+                        rightRotation(aux);
+                    }
+
+                }
+                else if (balance == -2)
+                {
+                    if (BF(aux.derecho) == 1)
+                    {
+                        rightRotation(aux.derecho);
+                    }
+                    else
+                    {
+                        leftRotation(aux);
+                    }
+                }
+            }
+
+        }
             public Nodo<T> ObtenerRaiz()
             {
                 return _raiz;

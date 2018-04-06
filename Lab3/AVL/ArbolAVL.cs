@@ -368,7 +368,7 @@ namespace AVL
                 {
                     if ( balance ==2)
                     {
-                        if (BF(aux) == -1)
+                        if (BF(aux.izquierdo) == -1)
                         {
                             rightRotation(aux);
                         }   
@@ -380,7 +380,7 @@ namespace AVL
                     else if ( balance==-2)
                     {
                         
-                            if (BF(aux) == 1)
+                            if (BF(aux.derecho) == 1)
                             {
                                 leftRotation(aux);
 

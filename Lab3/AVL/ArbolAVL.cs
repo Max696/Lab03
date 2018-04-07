@@ -16,14 +16,14 @@ namespace AVL
                 contadorE++;
                 if (!checkIfBalance(_raiz))
                 {
-                    balance2(_raiz);
+                    balance2(_raiz, 0, 0);
                     contadorE++;
                 }
                 return contadorE;
             }
             public int Insertar(Nodo<T> _nuevo)
             {
-                 int   contador   = 0;
+                int   contador   = 0;
                 if (_raiz == null)
                 {
                     _raiz = _nuevo;
@@ -35,11 +35,20 @@ namespace AVL
                 {
                     InsercionInterna(_raiz, _nuevo);
                     contador++;
-                    if (!checkIfBalance(_raiz))
+                    if (!checkIfBalance(_raiz) || !checkIfBalance(_raiz.izquierdo) || !checkIfBalance(_raiz.derecho))
                     {
-                       
-                        balance2(_nuevo);
-                        
+                        //Crear metodo para encontrar valor diferente
+                        int p = BF(_raiz);
+                        int k = 0;
+                        if (p >= 1)
+                        {
+                            k = valorDiferenteDer(p);
+                        }
+                        else
+                        {
+                            k = valorDiferenteIzq(p);
+                        }
+                        balance2(_nuevo, k, p);                    
                         contador++;
                     }
                     return contador;
@@ -53,7 +62,6 @@ namespace AVL
                     {
                         _actual.derecho = _nuevo;
                         _nuevo.parent = _actual;
-
                     }
                     else
                     {
@@ -93,28 +101,31 @@ namespace AVL
             {
                 int leftheigh;
                 int rightheigh;
-                
+
                 if (_root == null)
                 {
                     return true;
-
                 }
+
                 leftheigh = heigh(_root.izquierdo);
                 rightheigh = heigh(_root.derecho);
+
                 if (Math.Abs(rightheigh - leftheigh) <= 1 && checkIfBalance(_root.izquierdo) && checkIfBalance(_root.derecho))
                 {
                     return true;
                 }
+
                 return false;
             }            
             public int BF( Nodo<T> pivot)
             {
                 int leftheigh;
                 int rightheigh;
-               if (pivot == null)
-               {
-                   return 0;
-               }
+                if (pivot == null)
+                {
+                    return 0;
+                }
+
                 leftheigh = heigh(pivot.izquierdo);
                 rightheigh = heigh(pivot.derecho);
                 return (rightheigh - leftheigh);
@@ -279,7 +290,6 @@ namespace AVL
                 pivot.derecho = aux1.izquierdo;
                 aux1.izquierdo = pivot;
                 return aux1;
-
             }
             private Nodo<T> llRotation(Nodo<T> pivot)
             {
@@ -309,40 +319,81 @@ namespace AVL
             aux2.izquierdo = pivot;
             return aux2;
         }
+            
             private void rightRotation (Nodo<T> pivot)
-
             {
+                //OJO
                 Nodo<T> aux = pivot.parent.parent;
                 if (aux.derecho == null)
                 {
-                    Nodo<T> aux2 = pivot.parent;
-                    pivot.parent.parent = aux2;
-                    aux.izquierdo = null;
-                    pivot.parent.parent.derecho = aux;
                     if (aux.CompareTo(_raiz.valor) == 0)
                     {
+                        pivot.parent.derecho = aux;
+                        aux.izquierdo = null;
+                        aux.parent = pivot.parent;
                         _raiz = pivot.parent;
+                        _raiz.parent = null;
                     }
-                    
+                    else
+                    {
+                        //COMPARACION SI ES HIJO DERECHO O IZQUIERDO
+                        if (pivot.parent.parent.parent.CompareTo(pivot.parent.parent.valor) == -1)
+                        {
+                            pivot.parent.parent.parent.derecho = pivot.parent;
+                        }
+                        else
+                        {
+                            pivot.parent.parent.parent.izquierdo = pivot.parent;
+                        }
+                        pivot.parent.derecho = aux;
+                        aux.izquierdo = null;
+                        aux.parent = pivot.parent;
+                    }
                 }
-                
-            
-
-
+                else
+                {
+                    aux = pivot.parent;
+                    pivot.parent = pivot.parent.parent;
+                    pivot.parent.derecho = pivot;
+                    pivot.derecho = aux;
+                    aux.parent = pivot;
+                    aux.izquierdo = null;
+                }
             }
             private void leftRotation(Nodo<T> pivot)
            {
-               Nodo<T> aux = pivot.parent.parent;
-                if ( aux.izquierdo== null)
+                //Ready?
+                Nodo<T> aux = pivot.parent.parent;
+                if (aux.izquierdo == null)
                 {
-                    Nodo<T> aux2 = pivot.parent;
-                    pivot.parent.parent = aux2;
-                    aux.derecho = null;
-                    pivot.parent.parent.izquierdo = aux;
+                    //Rotacion más sencilla 
                     if (aux.CompareTo(_raiz.valor) == 0)
                     {
+                        pivot.parent.izquierdo = aux;
+                        aux.derecho = null;
+                        aux.parent = pivot.parent;
                         _raiz = pivot.parent;
+                        _raiz.parent = null;
                     }
+                    else
+                    {
+                        if (pivot.parent.parent.parent.CompareTo(pivot.parent.parent.valor) == -1)
+                        {
+                            //Se trata del hijo derecho
+                            pivot.parent.parent.parent.derecho = pivot.parent;
+                        }
+                        else
+                        {
+                            pivot.parent.parent.parent.izquierdo = pivot.parent;
+                        }
+                        pivot.parent.izquierdo = aux;
+                        aux.derecho = null;
+                        aux.parent = pivot.parent;
+                    }
+                }
+                else
+                {
+ 
                 }
            }
             public void balance (Nodo<T> aux)
@@ -352,53 +403,105 @@ namespace AVL
                 if ( Math.Sign(fbParent)== Math.Sign(fbSon))
                 {
                    // rotacion simple
-
-                    
                 }
                 else
                 {
                      //rotacion doble 
                 }
-
             }
-            public void balance2(Nodo<T> aux)
-            {
-                int balance = BF(_raiz);
-                if ( Math.Abs(balance)>1)
+            //ROTACIONES
+            //Yeah
+            public void balance2(Nodo<T> aux, int numeroDiferente, int raiz)
+            {   
+                if (raiz == 2 || raiz == 1)
                 {
-                    if ( balance ==2)
+                    if (raiz == 2)
                     {
-                        if (BF(aux) == -1)
+                        //Si pertenece al lado derecho de la raiz
+                        if (numeroDiferente == -2) //ver cuaderno para apuntes
                         {
-                            rightRotation(aux);
-                        }   
-                        else
-                        {
-                            leftRotation(aux);  
-                        }
-                    }
-                    else if ( balance==-2)
-                    {
-                        
-                            if (BF(aux) == 1)
+                            int i = BF(aux.parent);
+                            if (i == -1)
+                            {
+                                rightRotation(aux);
+                            }
+                            else if (i == 1)
                             {
                                 leftRotation(aux);
-
                             }
+                            else if(i == 10) //valor provicional
+                            {
+                                //DOBLE ROTACION
+                                rightRotation(aux);
+                            }
+                            
+                        }
+                        else
+                        {
+                            leftRotation(aux);
+                        }
+                    }
+                    else
+                    {
+                        //Raiz FB = 1
+                        if (numeroDiferente == -2)
+                        {
+                            rightRotation(aux);
+                        }
+                        else if (numeroDiferente == 2)
+                        {
+                            leftRotation(aux);
+                        }
+                    }
+                }//Arbol tirado al lado izquierdo
+                else if (raiz == -2 || raiz == -1)
+                {
+                    //Arbol tirado al lado derecho
+                    if (numeroDiferente == 2)
+                    {
+                        if (BF(aux.parent) == 1)
+                        {
+                            if (aux.parent.parent.izquierdo == null)
+                                leftRotation(aux);
                             else
                             {
-                               rightRotation(aux);
-                               
+                                //doble rotacion a la izquierda ESPECIAL.
+
                             }
                         }
-                    
+                        else
+                        {
+                            //Doble rotacion a la izquierda
+                            //Rotamos der aux y luego izq
+                            rightRotation(aux);
+                            leftRotation(aux.derecho);
+                        }
+                    }
+                    else
+                    {
+                        //Desequilibrio del lado izquierdo
+                        int i = BF(aux.parent.parent);
+                        if (i == 1)
+                        {
+                            //DobleRotacion
+                        }
+                        else if (i == -2)
+                        {
+                            if (aux.parent.parent.derecho == null)
+                                rightRotation(aux);
+                            else
+                            {
+                                //Doble Rotacion a Der
+                            }
+                        }
+                    }
                 }
-
             }
-            public void busqueda(Nodo< T>  pivot)
+            public void busqueda(Nodo<T> pivot)
             {
+
                 int s = BF(pivot);
-                if ( Math.Abs(s) != 2 )
+                if (Math.Abs(s) != 2)
                 {
                     balance(pivot);
                 }
@@ -410,8 +513,8 @@ namespace AVL
                         busqueda(pivot.derecho);
                 }
 
-              }
-        public void RD(Nodo<T> pivot)
+            }
+            public void RD(Nodo<T> pivot)
             {
                 Nodo<T> aux = pivot.izquierdo;
                 pivot.izquierdo = aux.derecho;
@@ -425,7 +528,7 @@ namespace AVL
                     pivot = aux;
                 }
             }
-        public void RI ( Nodo <T> pivot)
+            public void RI ( Nodo <T> pivot)
 
         {
             Nodo<T> aux = pivot.derecho;
@@ -440,37 +543,35 @@ namespace AVL
                 pivot = aux;
             }
         }
-        public void balance12(Nodo<T> aux)
-        {
-            int balance = BF(aux);
-            if (Math.Abs(balance) > 1)
+            public void balance12(Nodo<T> aux)
             {
-                if (balance == 2)
+                int balance = BF(aux);
+                if (Math.Abs(balance) > 1)
                 {
-                    if (BF(aux.izquierdo) == -1)
+                    if (balance == 2)
                     {
-                        leftRotation(aux.izquierdo);
+                        if (BF(aux.izquierdo) == -1)
+                        {
+                            leftRotation(aux.izquierdo);
+                        }
+                        else
+                        {
+                            rightRotation(aux);
+                        }
                     }
-                    else
+                    else if (balance == -2)
                     {
-                        rightRotation(aux);
-                    }
-
-                }
-                else if (balance == -2)
-                {
-                    if (BF(aux.derecho) == 1)
-                    {
-                        rightRotation(aux.derecho);
-                    }
-                    else
-                    {
-                        leftRotation(aux);
+                        if (BF(aux.derecho) == 1)
+                        {
+                            rightRotation(aux.derecho);
+                        }
+                        else
+                        {
+                            leftRotation(aux);
+                        }
                     }
                 }
             }
-
-        }
             public Nodo<T> ObtenerRaiz()
             {
                 return _raiz;
@@ -486,7 +587,30 @@ namespace AVL
 
                 }
             }
-          
+            
+            //Need coment
+            //Jjejeje
+            public int valorDiferenteDer(int n)
+            {
+                Nodo<T> aux = _raiz;
+                while (BF(aux) == n)
+                {
+                    aux = aux.derecho;
+                }
+                return BF(aux);
+            }
+
+            //Hola
+            //NEED COMENT
+            public int valorDiferenteIzq(int n)
+            {
+                Nodo<T> aux = _raiz;
+                while (BF(aux) == n)
+                {
+                    aux = aux.izquierdo;
+                }
+                return BF(aux);
+            }
     }
 }   
             

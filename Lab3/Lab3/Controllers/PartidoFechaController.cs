@@ -22,8 +22,6 @@ namespace Lab3.Controllers
         public ActionResult Index()
         {
             db.arbolFecha.Pre(db.arbolFecha._raiz);
-
-
             return View(db.arbolFecha.PreList);
         }
 
@@ -86,8 +84,6 @@ namespace Lab3.Controllers
             }
         }
 
-
-        PartidoFecha a;
         // GET: PartidoFecha/Delete/5
         public ActionResult Delete(int? noPar)
         {
@@ -95,13 +91,7 @@ namespace Lab3.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-
-            if (a == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-
-            return View(a);
+            return View();
         }
 
         // POST: PartidoFecha/Delete/5
@@ -176,7 +166,7 @@ namespace Lab3.Controllers
             }
             catch
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                return View();
             }
         }
 

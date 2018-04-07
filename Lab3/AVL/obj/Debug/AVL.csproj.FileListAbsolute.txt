@@ -15,3 +15,13 @@ D:\Lab03\Lab3\AVL\bin\Debug\AVL.dll
 D:\Lab03\Lab3\AVL\bin\Debug\AVL.pdb
 D:\Lab03\Lab3\AVL\obj\Debug\AVL.dll
 D:\Lab03\Lab3\AVL\obj\Debug\AVL.pdb
+C:\Users\lam_m\OneDrive\ED\Laaab\Lab03-master\Lab3\AVL\bin\Debug\AVL.dll
+C:\Users\lam_m\OneDrive\ED\Laaab\Lab03-master\Lab3\AVL\bin\Debug\AVL.pdb
+C:\Users\lam_m\OneDrive\ED\Laaab\Lab03-master\Lab3\AVL\obj\Debug\AVL.dll
+C:\Users\lam_m\OneDrive\ED\Laaab\Lab03-master\Lab3\AVL\obj\Debug\AVL.pdb
+C:\Users\lam_m\OneDrive\ED\Laaab\Lab03-master\Lab3\AVL\obj\Debug\AVL.csprojResolveAssemblyReference.cache
+D:\U\1 er 2018\ED\Optimizao\Laaab\Lab03-master\Lab3\AVL\bin\Debug\AVL.dll
+D:\U\1 er 2018\ED\Optimizao\Laaab\Lab03-master\Lab3\AVL\bin\Debug\AVL.pdb
+D:\U\1 er 2018\ED\Optimizao\Laaab\Lab03-master\Lab3\AVL\obj\Debug\AVL.csprojResolveAssemblyReference.cache
+D:\U\1 er 2018\ED\Optimizao\Laaab\Lab03-master\Lab3\AVL\obj\Debug\AVL.dll
+D:\U\1 er 2018\ED\Optimizao\Laaab\Lab03-master\Lab3\AVL\obj\Debug\AVL.pdb

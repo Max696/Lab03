@@ -138,31 +138,3 @@ C:\Users\lam_m\OneDrive\ED\Laaab\Lab03-master\Lab3\Lab3\bin\Newtonsoft.Json.xml
 C:\Users\lam_m\OneDrive\ED\Laaab\Lab03-master\Lab3\Lab3\obj\Debug\Lab3.csprojResolveAssemblyReference.cache
 C:\Users\lam_m\OneDrive\ED\Laaab\Lab03-master\Lab3\Lab3\obj\Debug\Lab3.dll
 C:\Users\lam_m\OneDrive\ED\Laaab\Lab03-master\Lab3\Lab3\obj\Debug\Lab3.pdb
-D:\U\1 er 2018\ED\Optimizao\Laaab\Lab03-master\Lab3\Lab3\bin\Lab3.dll.config
-D:\U\1 er 2018\ED\Optimizao\Laaab\Lab03-master\Lab3\Lab3\bin\Lab3.dll
-D:\U\1 er 2018\ED\Optimizao\Laaab\Lab03-master\Lab3\Lab3\bin\Lab3.pdb
-D:\U\1 er 2018\ED\Optimizao\Laaab\Lab03-master\Lab3\Lab3\bin\Antlr3.Runtime.dll
-D:\U\1 er 2018\ED\Optimizao\Laaab\Lab03-master\Lab3\Lab3\bin\AVL.dll
-D:\U\1 er 2018\ED\Optimizao\Laaab\Lab03-master\Lab3\Lab3\bin\Microsoft.Web.Infrastructure.dll
-D:\U\1 er 2018\ED\Optimizao\Laaab\Lab03-master\Lab3\Lab3\bin\Newtonsoft.Json.dll
-D:\U\1 er 2018\ED\Optimizao\Laaab\Lab03-master\Lab3\Lab3\bin\System.Web.Helpers.dll
-D:\U\1 er 2018\ED\Optimizao\Laaab\Lab03-master\Lab3\Lab3\bin\System.Web.Mvc.dll
-D:\U\1 er 2018\ED\Optimizao\Laaab\Lab03-master\Lab3\Lab3\bin\System.Web.Optimization.dll
-D:\U\1 er 2018\ED\Optimizao\Laaab\Lab03-master\Lab3\Lab3\bin\System.Web.Razor.dll
-D:\U\1 er 2018\ED\Optimizao\Laaab\Lab03-master\Lab3\Lab3\bin\System.Web.WebPages.Deployment.dll
-D:\U\1 er 2018\ED\Optimizao\Laaab\Lab03-master\Lab3\Lab3\bin\System.Web.WebPages.dll
-D:\U\1 er 2018\ED\Optimizao\Laaab\Lab03-master\Lab3\Lab3\bin\System.Web.WebPages.Razor.dll
-D:\U\1 er 2018\ED\Optimizao\Laaab\Lab03-master\Lab3\Lab3\bin\WebGrease.dll
-D:\U\1 er 2018\ED\Optimizao\Laaab\Lab03-master\Lab3\Lab3\bin\AVL.pdb
-D:\U\1 er 2018\ED\Optimizao\Laaab\Lab03-master\Lab3\Lab3\bin\System.Web.Helpers.xml
-D:\U\1 er 2018\ED\Optimizao\Laaab\Lab03-master\Lab3\Lab3\bin\System.Web.Mvc.xml
-D:\U\1 er 2018\ED\Optimizao\Laaab\Lab03-master\Lab3\Lab3\bin\System.Web.Optimization.xml
-D:\U\1 er 2018\ED\Optimizao\Laaab\Lab03-master\Lab3\Lab3\bin\System.Web.Razor.xml
-D:\U\1 er 2018\ED\Optimizao\Laaab\Lab03-master\Lab3\Lab3\bin\System.Web.WebPages.xml
-D:\U\1 er 2018\ED\Optimizao\Laaab\Lab03-master\Lab3\Lab3\bin\System.Web.WebPages.Deployment.xml
-D:\U\1 er 2018\ED\Optimizao\Laaab\Lab03-master\Lab3\Lab3\bin\System.Web.WebPages.Razor.xml
-D:\U\1 er 2018\ED\Optimizao\Laaab\Lab03-master\Lab3\Lab3\bin\Antlr3.Runtime.pdb
-D:\U\1 er 2018\ED\Optimizao\Laaab\Lab03-master\Lab3\Lab3\bin\Newtonsoft.Json.xml
-D:\U\1 er 2018\ED\Optimizao\Laaab\Lab03-master\Lab3\Lab3\obj\Debug\Lab3.csprojResolveAssemblyReference.cache
-D:\U\1 er 2018\ED\Optimizao\Laaab\Lab03-master\Lab3\Lab3\obj\Debug\Lab3.dll
-D:\U\1 er 2018\ED\Optimizao\Laaab\Lab03-master\Lab3\Lab3\obj\Debug\Lab3.pdb

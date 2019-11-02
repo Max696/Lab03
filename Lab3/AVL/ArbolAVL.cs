@@ -9,38 +9,114 @@ namespace AVL
     public class ArbolAVL<T> : IArbolBinario<T> where T: IComparable<T>
         {
             public Nodo<T> _raiz { get; set; }
-            int right = 0;
-            int left = 0;
+            private int contadorE = 0;
+        public int Eliminar(T value)
+            {
+                DeleteWithNodea(value, _raiz);
+                contadorE++;
+                if (!checkIfBalance(_raiz))
+                {
+                    balance2(_raiz);
+                    contadorE++;
+                }
+                return contadorE;
+            }
+            public int Insertar(Nodo<T> _nuevo)
+            {
+                if (_raiz == null)
+                {
+                    _raiz = _nuevo;
+                    _raiz.parent = null;
+                    contador++;
+                    return contador;
+                }
+                else
+                {
+                    InsercionInterna(_raiz, _nuevo);
+                    if (!checkIfBalance(_raiz))
+                    {
+                        balance2(_raiz);
+                        contador++;
+                    }
+                    return contador;
+                }
+            }
+            private void InsercionInterna(Nodo<T> _actual, Nodo<T> _nuevo)
+            {
+                if (_actual.CompareTo(_nuevo.valor) < 0)
+                {
+                    if (_actual.derecho == null)
+                    {
+                        _actual.derecho = _nuevo;
+                        _nuevo.parent = _actual;
+
+                    }
+                    else
+                    {
+                        InsercionInterna(_actual.derecho, _nuevo);
+                    }
+                }
+                else if (_actual.CompareTo(_nuevo.valor) > 0)
+                {
+                    if (_actual.izquierdo == null)
+                    {
+                        _actual.izquierdo = _nuevo;
+                        _nuevo.parent = _actual;
+                    }
+                    else
+                    {
+                        InsercionInterna(_actual.izquierdo, _nuevo);
+                    }
+                }
+            }
+      
+        
 
             public ArbolAVL() 
             {
                 _raiz = null;
             }
-        
-            public Nodo<T> Min( Nodo<T> actual)
+            public int maxComp(int a, int b)
             {
-                if (actual==null)
+                return (a >= b) ? a : b;
+            }
+            public int heigh(Nodo<T> _root)
+            {
+                if (_root == null)
                 {
-                    return null;
+                    return 0;
+                }
+                return 1 + maxComp(heigh(_root.izquierdo), heigh(_root.derecho));
+            }
+            public bool checkIfBalance(Nodo<T> _root)
+            {
+                int leftheigh;
+                int rightheigh;
+                
+                if (_root == null)
+                {
+                    return true;
 
                 }
-                if (actual.izquierdo == null)
+                leftheigh = heigh(_root.izquierdo);
+                rightheigh = heigh(_root.derecho);
+                if (Math.Abs(rightheigh - leftheigh) <= 1 && checkIfBalance(_root.izquierdo) && checkIfBalance(_root.derecho))
                 {
-                    return actual;
+                    return true;
                 }
-                return Min(actual.izquierdo);
+                return false;
             }
-
-            public  Nodo<T> RoveToFindMin()
+            
+            public int BF( Nodo<T> pivot)
             {
-                return Min(_raiz);
-            }
+                int leftheigh;
+                int rightheigh;
+               
+                leftheigh = heigh(pivot.izquierdo);
+                rightheigh = heigh(pivot.derecho);
+                return (rightheigh - leftheigh);
 
-            public void Eliminar(T _key)
-            {
-                DeleteWithNodea(_key, _raiz);
             }
-
             public Nodo<T> Max(Nodo<T> n)
             {
                 if (n == null)
@@ -55,7 +131,9 @@ namespace AVL
                     }
                     return n;
                 }
+
             }
+               
             public Nodo<T> DeleteWithNodea(T _key, Nodo<T> pivot) //Eliminar
             {
                 if (pivot==null)
@@ -103,7 +181,6 @@ namespace AVL
                 }
                 return pivot;
             }
-
             private void rootDelete(T _key, Nodo<T> root)
             {
                 if (root != null)
@@ -158,48 +235,122 @@ namespace AVL
                     }
                 }
             }
-
-            public void Insertar(Nodo<T> _nuevo)
+            private int   contador   = 0;
+            private void balanceV2(Nodo<T> pivot)
             {
-                if (_raiz == null)
+                int FB = BF(pivot);
+                 if ( Math.Abs(FB)>1)
+                 {
+                     if(FB==2)
+                     {
+
+                     } 
+                     else if ( FB == -2)
+                     {
+
+                     }
+
+                 }
+            }
+            private void rightRotation (Nodo<T> pivot)
+
+            {
+                Nodo<T> aux = pivot.izquierdo;
+                pivot.izquierdo = aux.derecho;
+                pivot.izquierdo.parent = pivot;
+                aux.derecho = pivot;
+                aux.parent = pivot.parent;
+                pivot.parent = aux;
+                if (pivot.Equals(_raiz))
                 {
-                    _raiz = _nuevo;
+                    _raiz = pivot;
+                    pivot = aux;
+                }
+
+
+            }
+            private void leftRotation(Nodo<T> pivot)
+           {
+               Nodo<T> aux = pivot.derecho;
+               pivot.derecho = aux.izquierdo;
+               pivot.derecho.parent = pivot;
+               aux.izquierdo = pivot;
+               aux.parent = pivot.parent;
+               pivot.parent = aux;
+               if (pivot.Equals(_raiz))
+               {
+                   _raiz = pivot;
+                   pivot = aux;
+               }
+           }
+            public void balance (Nodo<T> aux)
+            {
+                int fbParent = BF(aux.parent);
+                int fbSon = BF(aux);
+                if ( Math.Sign(fbParent)== Math.Sign(fbSon))
+                {
+                    // rotacion simple
+
+                    
                 }
                 else
                 {
-                    InsercionInterna(_raiz, _nuevo);
+                     //rotacion doble 
                 }
-            }
 
+            }
+            public void balance2(Nodo<T> aux)
+            {
+                int balance = BF(aux);
+                if ( Math.Abs(balance)>1)
+                {
+                    if ( balance ==2)
+                    {
+                        if(BF(aux.izquierdo)==-1)
+                        {
+                            leftRotation(aux.izquierdo);
+                        }
+                        else
+                        {
+                            rightRotation(aux);
+                        }
+                        
+                    }
+                    else if ( balance==-2)
+                    {
+                        if ( BF(aux.derecho) ==1)
+                        {
+                            rightRotation(aux.derecho);
+                        }
+                        else
+                        {
+                            leftRotation(aux); 
+                        }
+                    }
+                }
+
+            }
+            public void busqueda(Nodo< T>  pivot)
+            {
+                int s = BF(pivot);
+                if ( Math.Abs(s) != 2 )
+                {
+                    balance(pivot);
+                }
+                else
+                {
+                    if (s == -1)
+                        busqueda(pivot.izquierdo);
+                    else
+                        busqueda(pivot.derecho);
+                }
+
+              }
             public Nodo<T> ObtenerRaiz()
             {
                 return _raiz;
             }
-
-            private void InsercionInterna(Nodo<T> _actual, Nodo<T> _nuevo) {
-                if (_actual.CompareTo(_nuevo.valor) < 0)
-                {
-                    if (_actual.derecho == null)
-                    {
-                        _actual.derecho = _nuevo;
-                        right++;
-                    }
-                    else
-                    {
-                        InsercionInterna(_actual.derecho, _nuevo);
-                    }
-                }
-                else if (_actual.CompareTo(_nuevo.valor) > 0) {
-                    if (_actual.izquierdo == null)
-                    {
-                        _actual.izquierdo = _nuevo;
-                        left++;
-                    }
-                    else 
-                    {
-                        InsercionInterna(_actual.izquierdo, _nuevo);
-                    }
-                }
-            }
+          
     }
-}
+}   
+            

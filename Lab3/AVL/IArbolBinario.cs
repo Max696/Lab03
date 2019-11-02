@@ -8,9 +8,10 @@ namespace AVL
 {
     interface IArbolBinario<T>
     {
-        void Insertar(Nodo<T> _nuevo);
+        int Insertar(Nodo<T> _nuevo);
+        
 
-        void Eliminar(T _key);
+        int Eliminar(T _key);
 
         Nodo<T> ObtenerRaiz();
     }
